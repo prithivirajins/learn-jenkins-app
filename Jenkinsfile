@@ -10,7 +10,12 @@ pipeline {
                 }
             }
             steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+                 script {
+                    def result = sh(script: 'npm ci', returnStatus: true)
+                    if (result != 0) {
+                        echo "npm ci failed, but continuing pipeline"
+                    }
+                }
                 sh '''
                 ls -la
                 node --version
