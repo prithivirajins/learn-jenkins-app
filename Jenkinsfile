@@ -20,6 +20,7 @@ pipeline {
                 ls -la
                 node --version
                 npm --version
+                npm cache clean --force
                 npm ci || true
                 npm run build
                 ls -la
